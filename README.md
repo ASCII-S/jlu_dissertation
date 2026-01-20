@@ -25,10 +25,10 @@
 2. [texstudio](http://texstudio.sourceforge.net/) or [vscode](https://code.visualstudio.com/) with LaTex Workshop extension<br>
 3. build cmd：
    ```bash
-   pdflatex texfile  # texfile.tex is the main tex file
-   biber -l zh__pinyin texfile
-   pdflatex texfile
-   pdflatex texfile
+    xelatex main.tex
+    biber main
+    xelatex main.tex
+    xelatex main.tex
    ```
 ### references
 1. [bibtex](http://www.bibtex.org/)<br>

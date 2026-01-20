@@ -73,6 +73,11 @@
 % jlutex is 基于ctexbook; 默认字号是小四
 \LoadClass[zihao = -4]{ctexbook}[2014/03/06]
 
+% 定义隶书命令（如果系统没有隶书字体，使用黑体代替）
+\AtBeginDocument{
+	\providecommand{\lishu}{\heiti}
+}
+
 %==============================================================
 %=                     加载Package                            =
 %==============================================================
@@ -394,16 +399,16 @@
 					\centering
 					\begin{tabular}{rl} 
 						%{\bfseries\label@cnumber}&\textrm {\@cnumber}\\
-						{\songti\bfseries分\hphantom{汉}类\hphantom{汉}号：}&\textbf{\hspace{-0.4cm}\@cnumber}\\[3pt]
-						{\songti\bfseries研究生学号：}&\textbf{\hspace{-0.4cm}\@studentid}\\[3pt]
+						{\songti\bfseries 分\hphantom{汉}类\hphantom{汉}号：}&\textbf{\hspace{-0.4cm}\@cnumber}\\[3pt]
+						{\songti\bfseries 研究生学号：}&\textbf{\hspace{-0.4cm}\@studentid}\\[3pt]
 					\end{tabular}
 				\end{minipage}
 				\hfill
 				\begin{minipage}{0.2\textwidth}
 					\centering
 					\begin{tabular}{rl}        
-						{\songti\bfseries单位代码：}&\textbf{\hspace{-0.4cm}\@UnitCode}\\[3pt]
-						{\songti\bfseries密\hphantom{汉字}级：}&\textbf{\hspace{-0.4cm}\songti\@securitylevel}\\[3pt]
+						{\songti\bfseries 单位代码：}&\textbf{\hspace{-0.4cm}\@UnitCode}\\[3pt]
+						{\songti\bfseries 密\hphantom{汉字}级：}&\textbf{\hspace{-0.4cm}\songti\@securitylevel}\\[3pt]
 					\end{tabular}
 				\end{minipage}
 			\end{minipage}
@@ -435,11 +440,11 @@
 			\linespread{1.6}
 			% Slightly adjust the line skip when using new font size.
 			\songti\zihao{3}{
-				{\hspace{3.5cm}\bfseries作者姓名：\@cauthor}		 		 \\%作者姓名
-				{\hspace{3.5cm}\bfseries专\hphantom{汉字}业：\@cmajor} 	 \\%专业
-				{\hspace{3.5cm}\bfseries研究方向：\@direction} 			 \\%研究方向
-				{\hspace{3.5cm}\bfseries指导教师：\@cmentor}		 	 	 \\%指导教师
-				{\hspace{3.5cm}\bfseries培养单位：\@school}		 	 	 \\%培养单位
+				{\hspace{3.5cm}\bfseries 作者姓名：\@cauthor}		 		 \\%作者姓名
+				{\hspace{3.5cm}\bfseries 专\hphantom{汉字}业：\@cmajor} 	 \\%专业
+				{\hspace{3.5cm}\bfseries 研究方向：\@direction} 			 \\%研究方向
+				{\hspace{3.5cm}\bfseries 指导教师：\@cmentor}		 	 	 \\%指导教师
+				{\hspace{3.5cm}\bfseries 培养单位：\@school}		 	 	 \\%培养单位
 			}
 		\end{flushleft}
 		\vfill
@@ -477,14 +482,13 @@
 }
 
 %================投稿声明======================
+\newcommand{\mycheckbox}[1]{\tikz{\path[draw=#1,fill=#1] (0,0) rectangle (10pt,10pt);}}
+\newcommand{\myuncheckbox}[1]{\tikz{\path[draw=#1,fill=white] (0,0) rectangle (10pt,10pt);}}
 \newenvironment{mcopyright}{%上定义：留白等待用户内容
-	
+
 }{%下定义
 	\noindent
 	\\
-
-  \newcommand{\mycheckbox}[1]{\tikz{\path[draw=#1,fill=#1] (0,0) rectangle (10pt,10pt);}}
-	\newcommand{\myuncheckbox}[1]{\tikz{\path[draw=#1,fill=white] (0,0) rectangle (10pt,10pt);}}
 % 如果是硕士论文，使用下面这行
 	论文级别：\mycheckbox{black} \@level  \hspace{1cm} \myuncheckbox{black} 博士 \\
 % 如果是博士论文，使用下面这行
