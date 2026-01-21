@@ -219,7 +219,8 @@
 		\newcommand*{\setpdfproperties}{%
 			\hypersetup{
 				pdfauthor = {\@eauthor}, pdftitle = {\@etitle},
-				pdfsubject = {JLU\ \ethesisname}, pdfkeywords = {\@ekeywords}
+				pdfsubject = {JLU\ \ethesisname}, pdfkeywords = {\@ekeywords},
+				hidelinks
 			}%
 		}
 		% Set up the properties when generating the title page because the document
@@ -281,7 +282,7 @@
 % Set up page layout.
 \geometry{
 	a4paper, hmargin = 2.6cm, top = 2.92cm, bottom = 3.03cm,
-	headheight = 0.45cm, headsep = 0.59cm, footskip = 1.05cm
+	headheight = 1.5cm, headsep = 0.5cm, footskip = 1.05cm
 }
 
 % Set up chapter/section/... captions.
@@ -335,26 +336,29 @@
 \fi
 % The actual page style setup.
  \fancypagestyle{plain}{
- 	\fancyhf{}\renewcommand*{\headrulewidth}{0.75bp}
+ 	\fancyhf{}\renewcommand*{\headrulewidth}{1pt}
  	 %E偶数页，O奇数页，LCR左中右
  	\if@twoside
  		\fancyfoot[RO,LE]{\zihao{5}\normalfont{\thepage}}
- 		\fancyhead[CE]{\zihao{5}\kaishu{\cuniversity\cthesisname}}
- 		\fancyhead[CO]{\zihao{5}\kaishu\jlu@int@setcase{\leftmark}}
+ 		\fancyhead[CE]{\zihao{-5}\kaishu\ifx\@level\undefined\cuniversity\cthesisname\else\ifx\@level\relax\cuniversity\cthesisname\else吉林大学\@level\cthesisname\fi\fi}
+ 		\fancyhead[CO]{\zihao{-5}\kaishu\jlu@int@setcase{\leftmark}}
  	\else
- 		\fancyfoot[RO,RE]{\zihao{5}\normalfont{\thepage}}
- 		\fancyhead[C]{\zihao{5}\kaishu\jlu@int@setcase{\leftmark}}
+ 		\fancyfoot[C]{\zihao{5}\normalfont{\thepage}}
+ 		\fancyhead[C]{\zihao{-5}\kaishu\jlu@int@setcase{\leftmark}}
  	\fi
  }
  \pagestyle{plain}
 
 \fancypagestyle{myheading}{
-	\fancyhf{}\renewcommand*{\headrulewidth}{0pt}
+	\fancyhf{}\renewcommand*{\headrulewidth}{1pt}
 	 %E偶数页，O奇数页，LCR左中右
 	\if@twoside
 		\fancyfoot[RO,LE]{\zihao{5}\normalfont{\thepage}}
+		\fancyhead[CE]{\zihao{5}\kaishu\ifx\@level\undefined\cuniversity\cthesisname\else\ifx\@level\relax\cuniversity\cthesisname\else吉林大学\@level\cthesisname\fi\fi}
+		\fancyhead[CO]{\zihao{5}\kaishu\jlu@int@setcase{\leftmark}}
 	\else
-		\fancyfoot[RO,RE]{\zihao{5}\normalfont{\thepage}}
+		\fancyfoot[C]{\zihao{5}\normalfont{\thepage}}
+		\fancyhead[C]{\zihao{5}\kaishu\jlu@int@setcase{\leftmark}}
 	\fi
 }
 \pagestyle{myheading}
@@ -419,47 +423,48 @@
 		{% 校徽，校名，论文种类
 			%校徽
 			\begin{center}
-				
-				\begin{spacing}{1.0}%%行间距变为single-space
-					\begin{figure}[h]
-						\centerline{\includegraphics[width = 3cm]{./jlu.png}}
-					\end{figure}
-					\lishu \zihao{-0}\textls[500]{吉林大学}\\
-					\lishu \zihao{-0}{\cthesisname}\\
-					% 根据学位类别动态显示（学术学位）或（专业学位）
-					\lishu \zihao{2}\textbf{（\@DegreeCategory）}
-				\end{spacing}
-				\vskip 1.0cm	
-				\heiti \zihao{3} {\@ctitle}\\
-				\sffamily \zihao{-3} {\@etitle} 
-			\end{center}
+               \begin{spacing}{1.0}
+                    \begin{figure}[h]
+                      \centerline{\includegraphics[width = 3cm]{./jlu.png}}
+                    \end{figure}
+                    \lishu \zihao{-0} {\ziju{0.5}吉林大学} \\
+                    \lishu \zihao{-0} {\cthesisname} \\[10pt]
+                    \lishu \zihao{2} \textbf{（\@DegreeCategory）}
+               \end{spacing}
+               \par 
+               {\zihao{-4}\rmfamily \vspace{2\baselineskip}} 
+               \heiti \zihao{3} {\@ctitle}
+               \par
+               {\zihao{-4}\rmfamily \vspace{1\baselineskip}} 
+               \sffamily \zihao{-3} {\@etitle} 
+            \end{center}
 			\vskip 1.5cm	
 		}
-		\vfill
+		
 		% Information about the author.
 		\begin{flushleft}
 			\linespread{1.6}
 			% Slightly adjust the line skip when using new font size.
 			\songti\zihao{3}{
-				{\hspace{3.5cm}\bfseries 作\hphantom{者}者\hphantom{者}姓\hphantom{者}名：\@cauthor}		 		 \\%作者姓名
+				{\hspace{1.5cm}\bfseries\makebox[5em][s]{作者姓名}：\@cauthor}		 		 \\%作者姓名
 				% 根据学位类别显示不同的字段标签
 				\ifx\@DegreeCategory\undefined
-					{\hspace{3.5cm}\bfseries 专\hphantom{汉字汉}业：\@cmajor} 	 \\%专业（默认）
-					{\hspace{3.5cm}\bfseries 研\hphantom{者}究\hphantom{者}方\hphantom{者}向：\@direction} 			 \\%研究方向
+					{\hspace{1.5cm}\bfseries 专\hphantom{汉字汉}业：\@cmajor} 	 \\%专业（默认）
+					{\hspace{1.5cm}\bfseries 研\hphantom{者}究\hphantom{者}方\hphantom{者}向：\@direction} 			 \\%研究方向
 				\else
 					\def\tempDegree{学术学位}
 					\ifx\@DegreeCategory\tempDegree
 						% 学术学位：显示"专业"和"研究方向"
-						{\hspace{3.5cm}\bfseries 专\hphantom{汉字汉}业：\@cmajor} 	 \\%专业
-						{\hspace{3.5cm}\bfseries 研\hphantom{者}究\hphantom{者}方\hphantom{者}向：\@direction} 			 \\%研究方向
+						{\hspace{1.5cm}\bfseries 专\hphantom{汉字汉}业：\@cmajor} 	 \\%专业
+						{\hspace{1.5cm}\bfseries 研\hphantom{者}究\hphantom{者}方\hphantom{者}向：\@direction} 			 \\%研究方向
 					\else
 						% 专业学位：显示"类别"和"领域（方向）"
-						{\hspace{3.5cm}\bfseries 类\hphantom{汉字汉}别：\@cmajor} 	 \\%类别
-						{\hspace{3.5cm}\bfseries 领域（方向）：\@direction} 			 \\%领域（方向）
+						{\hspace{1.5cm}\bfseries\makebox[5em][s]{类别}：\@cmajor} 	 \\%类别
+						{\hspace{1.5cm}\bfseries\makebox[5em][s]{领域{\songti（}方向{\songti）}}：\@direction} 			 \\%领域（方向）
 					\fi
 				\fi
-				{\hspace{3.5cm}\bfseries 指\hphantom{者}导\hphantom{者}教\hphantom{者}师：\@cmentor}		 	 	 \\%指导教师
-				{\hspace{3.5cm}\bfseries 培\hphantom{者}养\hphantom{者}单\hphantom{者}位：\@school}		 	 	 \\%培养单位
+				{\hspace{1.5cm}\bfseries\makebox[5em][s]{指导教师}：\@cmentor}		 	 	 \\%指导教师
+				{\hspace{1.5cm}\bfseries\makebox[5em][s]{培养单位}：\@school}		 	 	 \\%培养单位
 			}
 		\end{flushleft}
 		\vfill
@@ -492,7 +497,7 @@
 				{\hspace{1.5cm}作者姓名：\hspace{0.5cm}\@cauthor}		 		 \\%作者姓名
 				{\hspace{1.5cm}专业名称：\hspace{0.5cm}\@cmajor} 	 \\%专业
 				{\hspace{1.5cm}指导教师：\hspace{0.5cm}\@cmentor}		 	 	 \\%指导教师
-				{\hspace{1.5cm}学位类别：\hspace{0.5cm}\@DegreeCategory}				  \\
+				{\hspace{1.5cm}学位类别：\hspace{0.5cm}学术学位}				  \\
 				{\hspace{1.5cm}答辩日期：\hspace{1.5cm}年\hspace{1.3cm}月\hspace{1.3cm}日}						 \\%答辩日期
 			\else
 				\def\tempDegree{学术学位}
@@ -543,14 +548,14 @@
 	作者联系电话：\@telephone\\
 }
 
-\newenvironment{toc}{
-	\jlu@int@pdfmark{摘要}{cabstract}
-	%\chapter{}{}%\markboth{\cabstractname}
-	\begin{center}
-		\zihao{4}摘要\\
-		\heiti\zihao{3}\@ctitle
-	\end{center}
-}{}
+% \newenvironment{toc}{
+% 	\jlu@int@pdfmark{摘要}{cabstract}
+% 	%\chapter{}{}%\markboth{\cabstractname}
+% 	\begin{center}
+% 		\zihao{4}摘要\\
+% 		\heiti\zihao{3}\@ctitle
+% 	\end{center}
+% }{}
 
 % ===============中文摘要======================
 \newenvironment{cabstract}{%
@@ -558,11 +563,11 @@
 	%\chapter{}{}%\markboth{\cabstractname}
 	\begin{center}
 		\zihao{4}\textbf{摘要}\\
-		\heiti\zihao{3}\@ctitle
+		\songti\zihao{3}\@ctitle
 	\end{center}
 }{% Keywords at the bottom of the page.
 	\vskip 0.5cm
-	\noindent\textbf{关键词：}{\@ckeywords}%
+	\noindent{\songti\bfseries 关键词：}{\@ckeywords}%
 }
 %================英文摘要======================
 \newenvironment{eabstract}{%
@@ -570,7 +575,7 @@
 	%\chapter{}{}%\markboth{\eabstractname}
 	\begin{center}
 		\zihao{4}ABSTRACT\\
-		\heiti\zihao{3}\@etitle
+		\songti\zihao{3}\@etitle
 	\end{center}
 }{% Keywords at the bottom of the page.
 	\vskip 0.5cm

@@ -1,5 +1,6 @@
 # ignore editor files
 .vs/
+.vscode/
 /[Tt]emp
 *.tlog
 # ignore generated files

@@ -10,7 +10,9 @@
 % 默认为书籍排版即双面打印，章节从偶数页开始
 % oneside：单面打印
 % openany:章节从任意页码开始
-\documentclass[UTF8,openany,oneside]{jlutex}
+\documentclass[UTF8,openany,oneside,fontset=fandol]{jlutex}
+\setCJKfamilyfont{myLishu}[AutoFakeBold=true, Path=./, Extension=.TTF]{SIMLI} 
+\newcommand{\lishu}{\CJKfamily{myLishu}}
 % 如果的确须要使脚注按页编号的话，可以去掉后面 footmisc 包的注释。
 % 注意：在启用此设定的情况下，可能要多编译一次以产生正确的脚注编号。
 \usepackage[perpage]{footmisc}
@@ -50,7 +52,7 @@
 	securitylevel = {公\hskip 0.15cm 开},
 	cuniversity = {吉林大学}, euniversity = {Jilin University},
 	cthesisname = {硕士学位论文},ethesisname = {Master Thesis},
-	ctitle = {吉林大学学位论文LaTeX模板示例}, etitle = {Sample of LaTexAa Template for Jilin University Dissertation},
+	ctitle = {吉林大学学位论文LaTeX模板示例}, etitle = {Sample of LaTexAa Template for Jilin University Dissertation And the Rest is to Test},
 	cauthor = {安娜学姐}, eauthor = {Anna},
 	address = {吉林省长春市朝阳区前进大街2699号（130012）},
 	telephone={12345678901},
@@ -77,7 +79,7 @@
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 
 %对号和错号
-\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+% \usepackage{amssymb}% http://ctan.org/pkg/amssymb  % 与newtxmath冲突，已注释
 \usepackage{pifont}% http://ctan.org/pkg/pifont
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
@@ -86,14 +88,6 @@
 \BeforeBeginEnvironment{tabular}{\zihao{-5}}
 %表格背景色
 \usepackage{colortbl}
-\usepackage{fancyhdr}
-
-\pagestyle{fancy}
-\fancypagestyle{toc}{
-\fancyhf{}%
-%\fancyfoot{thepage}
-\renewcommand{\headrulewidth}{0pt}%
-}
 
 \begin{document}{}
 	% 以下为正文之前的部分，默认不进行章节编号。
