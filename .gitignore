@@ -23,3 +23,7 @@ jiafeng5513_spine.tex
 jiafeng5513_ref.bib
 jiafeng5513_chap
 imgs
+
+# Ignore documentation files
+TexLive安装指南.md
+install_packages.bat

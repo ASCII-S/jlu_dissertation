@@ -426,7 +426,8 @@
 					\end{figure}
 					\lishu \zihao{-0}\textls[500]{吉林大学}\\
 					\lishu \zihao{-0}{\cthesisname}\\
-					\lishu \zihao{2}\textbf{（学术学位）}
+					% 根据学位类别动态显示（学术学位）或（专业学位）
+					\lishu \zihao{2}\textbf{（\@DegreeCategory）}
 				\end{spacing}
 				\vskip 1.0cm	
 				\heiti \zihao{3} {\@ctitle}\\
@@ -440,11 +441,25 @@
 			\linespread{1.6}
 			% Slightly adjust the line skip when using new font size.
 			\songti\zihao{3}{
-				{\hspace{3.5cm}\bfseries 作者姓名：\@cauthor}		 		 \\%作者姓名
-				{\hspace{3.5cm}\bfseries 专\hphantom{汉字}业：\@cmajor} 	 \\%专业
-				{\hspace{3.5cm}\bfseries 研究方向：\@direction} 			 \\%研究方向
-				{\hspace{3.5cm}\bfseries 指导教师：\@cmentor}		 	 	 \\%指导教师
-				{\hspace{3.5cm}\bfseries 培养单位：\@school}		 	 	 \\%培养单位
+				{\hspace{3.5cm}\bfseries 作\hphantom{者}者\hphantom{者}姓\hphantom{者}名：\@cauthor}		 		 \\%作者姓名
+				% 根据学位类别显示不同的字段标签
+				\ifx\@DegreeCategory\undefined
+					{\hspace{3.5cm}\bfseries 专\hphantom{汉字汉}业：\@cmajor} 	 \\%专业（默认）
+					{\hspace{3.5cm}\bfseries 研\hphantom{者}究\hphantom{者}方\hphantom{者}向：\@direction} 			 \\%研究方向
+				\else
+					\def\tempDegree{学术学位}
+					\ifx\@DegreeCategory\tempDegree
+						% 学术学位：显示"专业"和"研究方向"
+						{\hspace{3.5cm}\bfseries 专\hphantom{汉字汉}业：\@cmajor} 	 \\%专业
+						{\hspace{3.5cm}\bfseries 研\hphantom{者}究\hphantom{者}方\hphantom{者}向：\@direction} 			 \\%研究方向
+					\else
+						% 专业学位：显示"类别"和"领域（方向）"
+						{\hspace{3.5cm}\bfseries 类\hphantom{汉字汉}别：\@cmajor} 	 \\%类别
+						{\hspace{3.5cm}\bfseries 领域（方向）：\@direction} 			 \\%领域（方向）
+					\fi
+				\fi
+				{\hspace{3.5cm}\bfseries 指\hphantom{者}导\hphantom{者}教\hphantom{者}师：\@cmentor}		 	 	 \\%指导教师
+				{\hspace{3.5cm}\bfseries 培\hphantom{者}养\hphantom{者}单\hphantom{者}位：\@school}		 	 	 \\%培养单位
 			}
 		\end{flushleft}
 		\vfill
@@ -471,11 +486,32 @@
 		% Slightly adjust the line skip when using new font size.
 		\linespread{2}
 		\songti\zihao{4}{
-			{\hspace{1.5cm}作者姓名：\hspace{0.5cm}\@cauthor}		 		 \\%作者姓名
-			{\hspace{1.5cm}专业名称：\hspace{0.5cm}\@cmajor} 	 \\%专业
-			{\hspace{1.5cm}指导教师：\hspace{0.5cm}\@cmentor}		 	 	 \\%指导教师
-			{\hspace{1.5cm}学位类别：\hspace{0.5cm}工学硕士}				  \\
-			{\hspace{1.5cm}答辩日期：\hspace{1.5cm}年\hspace{1.3cm}月\hspace{1.3cm}日}						 \\%答辩日期
+			% 根据学位类别显示不同的扉页格式
+			\ifx\@DegreeCategory\undefined
+				% 默认格式（学术学位）
+				{\hspace{1.5cm}作者姓名：\hspace{0.5cm}\@cauthor}		 		 \\%作者姓名
+				{\hspace{1.5cm}专业名称：\hspace{0.5cm}\@cmajor} 	 \\%专业
+				{\hspace{1.5cm}指导教师：\hspace{0.5cm}\@cmentor}		 	 	 \\%指导教师
+				{\hspace{1.5cm}学位类别：\hspace{0.5cm}\@DegreeCategory}				  \\
+				{\hspace{1.5cm}答辩日期：\hspace{1.5cm}年\hspace{1.3cm}月\hspace{1.3cm}日}						 \\%答辩日期
+			\else
+				\def\tempDegree{学术学位}
+				\ifx\@DegreeCategory\tempDegree
+					% 学术学位格式（附件3-2第2页）
+					{\hspace{1.5cm}作者姓名：\hspace{0.5cm}\@cauthor}		 		 \\%作者姓名
+					{\hspace{1.5cm}专业名称：\hspace{0.5cm}\@cmajor} 	 \\%专业
+					{\hspace{1.5cm}指导教师：\hspace{0.5cm}\@cmentor}		 	 	 \\%指导教师
+					{\hspace{1.5cm}学位类别：\hspace{0.5cm}\@DegreeCategory}				  \\
+					{\hspace{1.5cm}答辩日期：\hspace{1.5cm}年\hspace{1.3cm}月\hspace{1.3cm}日}						 \\%答辩日期
+				\else
+					% 专业学位格式（附件3-2第4页）
+					{\hspace{1.5cm}作者姓名：\hspace{0.5cm}\@cauthor}		 		 \\%作者姓名
+					{\hspace{1.5cm}领域（方向）：\hspace{0.5cm}\@direction} 	 \\%领域（方向）
+					{\hspace{1.5cm}指导教师：\hspace{0.5cm}\@cmentor}		 	 	 \\%指导教师
+					{\hspace{1.5cm}类\hphantom{汉字}别：\hspace{0.5cm}\@cmajor}				  \\%类别
+					{\hspace{1.5cm}答辩日期：\hspace{1.5cm}年\hspace{1.3cm}月\hspace{1.3cm}日}						 \\%答辩日期
+				\fi
+			\fi
 		}
 	\end{flushleft}
 	\vskip 2.5cm
